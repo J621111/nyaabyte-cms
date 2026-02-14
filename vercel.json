@@ -7,7 +7,7 @@
     }
   ],
   "env": {
-    "GITHUB_TOKEN": "@github-token",
+    "GITHUB_TOKEN": "${GITHUB_TOKEN}",
     "GITHUB_OWNER": "J621111",
     "GITHUB_REPO": "NyaaByte-Blog",
     "GITHUB_CONTENT_PATH": "content"
