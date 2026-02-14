@@ -88,8 +88,7 @@ export async function getAllPosts(): Promise<Post[]> {
       })
     );
 
-    return posts
-      .filter((post): post is Post => post !== null)
+    return (posts.filter(post => post !== null) as Post[])
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
     console.error('Error fetching posts:', error);

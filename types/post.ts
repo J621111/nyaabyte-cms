@@ -23,6 +23,7 @@ export interface CreatePostInput {
   content: string;
   image?: string;
   tags?: string[];
+  date?: string;
 }
 
 export interface UpdatePostInput extends Partial<CreatePostInput> {
