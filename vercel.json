@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "GITHUB_TOKEN": "@github-token",
+    "GITHUB_OWNER": "J621111",
+    "GITHUB_REPO": "NyaaByte-Blog",
+    "GITHUB_CONTENT_PATH": "content"
+  }
+}
