@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllPosts, createPost } from '@/lib/github';
+import { requireAuth } from '@/lib/auth';
 
 export async function GET() {
   try {
@@ -16,6 +17,12 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    // 检查认证
+    const auth = await requireAuth();
+    if (!auth.success) {
+      return auth.response;
+    }
+
     const body = await request.json();
     
     // Validate required fields

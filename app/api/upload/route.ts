@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { uploadImage } from '@/lib/github';
+import { requireAuth } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
+    // 检查认证
+    const auth = await requireAuth();
+    if (!auth.success) {
+      return auth.response;
+    }
+
     const formData = await request.formData();
     const file = formData.get('file') as File;
 

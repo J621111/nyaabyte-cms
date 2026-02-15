@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPostBySlug, updatePost, deletePost } from '@/lib/github';
+import { requireAuth } from '@/lib/auth';
 
 interface RouteParams {
   params: Promise<{
@@ -31,6 +32,12 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
+    // 检查认证
+    const auth = await requireAuth();
+    if (!auth.success) {
+      return auth.response;
+    }
+
     const { slug } = await params;
     const body = await request.json();
 
@@ -54,6 +61,12 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
+    // 检查认证
+    const auth = await requireAuth();
+    if (!auth.success) {
+      return auth.response;
+    }
+
     const { slug } = await params;
     await deletePost(slug);
     return NextResponse.json({ success: true });

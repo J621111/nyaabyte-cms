@@ -6,9 +6,10 @@ import PostList from './index';
 
 interface PostListClientProps {
   initialPosts: Post[];
+  isAuthenticated: boolean;
 }
 
-export default function PostListClient({ initialPosts }: PostListClientProps) {
+export default function PostListClient({ initialPosts, isAuthenticated }: PostListClientProps) {
   const [posts, setPosts] = useState(initialPosts);
 
   const handleDelete = async (slug: string) => {
@@ -23,6 +24,9 @@ export default function PostListClient({ initialPosts }: PostListClientProps) {
 
       if (response.ok) {
         setPosts(posts.filter((p) => p.slug !== slug));
+      } else if (response.status === 401) {
+        alert('请先登录');
+        window.location.href = '/login';
       } else {
         alert('删除失败');
       }
@@ -32,5 +36,5 @@ export default function PostListClient({ initialPosts }: PostListClientProps) {
     }
   };
 
-  return <PostList posts={posts} onDelete={handleDelete} />;
+  return <PostList posts={posts} onDelete={handleDelete} isAuthenticated={isAuthenticated} />;
 }

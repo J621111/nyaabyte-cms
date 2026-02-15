@@ -59,6 +59,9 @@ export default function PostEditor({ post, isNew }: PostEditorProps) {
       if (response.ok) {
         router.push('/');
         router.refresh();
+      } else if (response.status === 401) {
+        alert('会话已过期，请重新登录');
+        router.push('/login');
       } else {
         const error = await response.text();
         alert(`保存失败: ${error}`);

@@ -10,15 +10,18 @@ import Link from 'next/link';
 interface PostListProps {
   posts: Post[];
   onDelete: (slug: string) => void;
+  isAuthenticated: boolean;
 }
 
-export default function PostList({ posts, onDelete }: PostListProps) {
+export default function PostList({ posts, onDelete, isAuthenticated }: PostListProps) {
   return (
     <div className="space-y-4">
       {posts.length === 0 ? (
         <div className="text-center py-12 text-gray-500">
           <p className="text-lg">暂无文章</p>
-          <p className="text-sm mt-2">点击上方按钮创建新文章</p>
+          {isAuthenticated && (
+            <p className="text-sm mt-2">点击上方按钮创建新文章</p>
+          )}
         </div>
       ) : (
         posts.map((post) => (
@@ -51,24 +54,28 @@ export default function PostList({ posts, onDelete }: PostListProps) {
                 )}
               </div>
               <div className="flex items-center gap-2 ml-4">
-                <Link href={`/posts/${post.slug}`}>
-                  <Button variant="ghost" size="icon">
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                </Link>
+                {isAuthenticated && (
+                  <Link href={`/posts/${post.slug}`}>
+                    <Button variant="ghost" size="icon">
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                )}
                 <Link href={`https://nyaabyte.com/posts/${post.slug}`} target="_blank">
                   <Button variant="ghost" size="icon">
                     <ExternalLink className="h-4 w-4" />
                   </Button>
                 </Link>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => onDelete(post.slug)}
-                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                {isAuthenticated && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => onDelete(post.slug)}
+                    className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                )}
               </div>
             </div>
           </div>
