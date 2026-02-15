@@ -22,39 +22,37 @@ export default async function Home() {
       </div>
 
       {/* 🌸 可爱Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b-2 border-pink-200/50 sticky top-0 z-50 relative">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <header className="sticky top-4 z-50 px-4 mb-8">
+        <div className="max-w-5xl mx-auto bg-white/90 backdrop-blur-xl border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-full px-6 py-3 flex items-center justify-between transition-all hover:shadow-[0_8px_30px_rgb(236,72,153,0.1)]">
           <div className="flex items-center gap-4">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-pink-400 via-pink-300 to-purple-400 rounded-2xl flex items-center justify-center shadow-[0_6px_0_0_rgb(190,24,93)] border-3 border-white">
-                <FileText className="h-6 w-6 text-white" />
+              <div className="w-10 h-10 bg-gradient-to-br from-pink-400 via-pink-300 to-purple-400 rounded-full flex items-center justify-center shadow-inner border-2 border-white">
+                <FileText className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-extrabold text-pink-600 tracking-wide">NyaaByte CMS</h1>
-                <div className="flex items-center gap-1">
-                  <Sparkles className="h-3 w-3 text-yellow-400" />
-                  <span className="text-xs text-pink-400 font-medium">可爱文章管理器</span>
-                </div>
+                <h1 className="text-lg font-extrabold text-pink-600 tracking-wide">NyaaByte</h1>
               </div>
             </div>
             {authenticated && (
-              <span className="ml-2 px-3 py-1.5 bg-gradient-to-r from-green-400 to-emerald-400 text-white text-xs font-bold rounded-full shadow-md border-2 border-green-300">
-                ✓ 已登录
+              <span className="ml-1 px-2.5 py-1 bg-green-100 text-green-600 text-xs font-bold rounded-full border border-green-200 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"/>
+                已登录
               </span>
             )}
           </div>
           
-          <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-pink-500 bg-pink-50 px-4 py-2 rounded-full border-2 border-pink-200">
-              📝 {posts.length} 篇文章
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:flex text-xs font-medium text-pink-500 bg-pink-50 px-3 py-1.5 rounded-full border border-pink-100 items-center gap-1.5">
+              <Sparkles className="h-3 w-3" />
+              {posts.length} 篇文章
             </span>
             {authenticated ? (
               <>
                 <Link href="/posts/new">
-                  <Button className="shadow-lg">
-                    <Plus className="h-5 w-5 mr-2" />
-                    新建文章
+                  <Button size="sm" className="rounded-full shadow-pink-200/50">
+                    <Plus className="h-4 w-4 mr-1.5" />
+                    写文章
                   </Button>
                 </Link>
                 <LogoutButton />
@@ -62,10 +60,11 @@ export default async function Home() {
             ) : (
               <Link href="/login">
                 <Button 
+                  size="sm"
                   variant="outline" 
-                  className="bg-gradient-to-r from-pink-500 to-purple-500 text-white border-0 hover:from-pink-600 hover:to-purple-600 shadow-lg"
+                  className="rounded-full border-pink-200 text-pink-500 hover:bg-pink-50"
                 >
-                  <LogIn className="h-5 w-5 mr-2" />
+                  <LogIn className="h-4 w-4 mr-1.5" />
                   登录
                 </Button>
               </Link>
@@ -75,24 +74,30 @@ export default async function Home() {
       </header>
 
       {/* 🎀 Main Content */}
-      <div className="max-w-5xl mx-auto px-6 py-10 relative z-10">
+      <div className="max-w-4xl mx-auto px-6 py-4 relative z-10 flex flex-col items-center">
         {/* 欢迎语卡片 */}
-        <div className="mb-10 text-center">
-          <div className="inline-flex items-center gap-4 bg-white/90 backdrop-blur-md px-8 py-5 rounded-[2rem] border-3 border-pink-200 shadow-[0_10px_40px_-15px_rgb(219,39,119,0.3)]">
-            <span className="text-4xl animate-pulse">🌸</span>
-            <div className="text-left">
-              <p className="text-xl font-extrabold text-pink-600">
-                {authenticated ? '欢迎回来！开始创作吧喵~' : '欢迎访客！登录后可管理文章哦~'}
+        <div className="w-full mb-8 text-center">
+          <div className="inline-flex flex-col md:flex-row items-center gap-6 bg-white/80 backdrop-blur-sm px-10 py-8 rounded-[2.5rem] border border-white/60 shadow-[0_20px_40px_-15px_rgba(236,72,153,0.15)] hover:scale-[1.01] transition-transform duration-300">
+            <div className="relative">
+              <span className="text-5xl animate-bounce inline-block">🌸</span>
+              <div className="absolute -bottom-2 -right-2 bg-yellow-100 rounded-full p-1">
+                <Sparkles className="h-4 w-4 text-yellow-500" />
+              </div>
+            </div>
+            <div className="text-center md:text-left">
+              <p className="text-2xl font-black text-gray-800 tracking-tight">
+                {authenticated ? '欢迎回来喵！' : '欢迎访客喵！'}
               </p>
-              <p className="text-pink-400 font-medium mt-1">
-                {authenticated ? '你可以创建、编辑和删除文章' : '你可以浏览所有已发布的文章'}
+              <p className="text-pink-400 font-medium mt-2 text-base">
+                {authenticated ? '今天也要元气满满地创作哦~ ✨' : '登录后就可以管理这些可爱的文章啦~ ✨'}
               </p>
             </div>
-            <span className="text-4xl animate-pulse" style={{ animationDelay: '0.5s' }}>🐱</span>
           </div>
         </div>
 
-        <PostListClient initialPosts={posts} isAuthenticated={authenticated} />
+        <div className="w-full">
+          <PostListClient initialPosts={posts} isAuthenticated={authenticated} />
+        </div>
       </div>
       
       {/* 底部装饰 */}
